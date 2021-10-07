@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type="text/javascript">
-function suma(a,b){
-    let resultado = a+b;
-    alert("Esta es una verdad " +  resultado);
-}
-    </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My serious Project </title>
-    <script>
-suma("Daniel ","eres genial!!!");
+    <script type="text/javascript">
+
+        async function bringCountry(){
+            let respuesta = await fetch("https://api.nationalize.io?name=rufino");
+            // here we check the request errors
+            if(!respuesta.ok)
+            {
+                let oops = " 404 i didn't find anything :(";
+                alert (oops);
+                throw new Error (oops);
+            }
+            const nombre = respuesta.json();
+            return nombre;
+        }
+        function showName(name){
+            document.getElementById("mensaje").innerHTML = name.country[0].country_id;
+        }
+        
+        bringCountry().then(showName);
+        
     </script>
 </head>
 <body>
-    
+    <h1>Testing api</h1>
+    <h1>Predict the nationality of a name</h1>
+    <p id="mensaje">Loading...</p>
 </body>
 </html>
